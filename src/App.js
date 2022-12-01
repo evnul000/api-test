@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import useFetch from "./hooks/useFetch";
+import House from "./components/House";
+
+export default function App() {
+  const { data, setData } = useFetch();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <input
+        type="text"
+        placeholder="Type your favorite house"
+        value={data.slug}
+        onChange={(e) => setData({ ...data, slug: e.target.value })}
+      />
+      <br />
+      {data.results.length > 0 ? <House family={data.results[0]} /> : null}
+    </main>
   );
 }
+//houses you can enter : lannister
 
-export default App;
